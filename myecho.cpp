@@ -53,8 +53,10 @@ string quote(string s){
         return s;
     } 
     
-    for(int i=strLength; i>=0; i--){
-        s[i] = s[i++];
+    s.resize(strLength+2);
+
+    for(int i=strLength+2; i>=0; i--){
+        s[i]=s[i-2];
     }
 
     strLength++;
@@ -64,24 +66,29 @@ string quote(string s){
     return s;
 }
 
-void test_quote(){
-    cout << "testing quote ... ";
-    assert(quote("a"      ) == "\"a\""   );
-    assert(quote("ab"     ) == "\"ab\""  );
-    assert(quote("\"a\""  ) == "\"a\""   );
-    assert(quote("\"ab\"" ) == "\"ab\""  );
-    assert(quote("a\"b"   ) == "\"a\"b\"");
-    assert(quote("\"a"    ) == "\"\"a\"" );
-    assert(quote("a\""    ) == "\"a\"\"" );
-    assert(quote(""       ) == "\"\""    );
-    assert(quote("\""     ) == "\"\"\""  );
-    cout << "all tests passed\n";
-}
+// void test_quote(){
+//     cout << "testing quote ... ";
+//     assert(quote("a"      ) == "\"a\""   );
+//     assert(quote("ab"     ) == "\"ab\""  );
+//     assert(quote("\"a\""  ) == "\"a\""   );
+//     assert(quote("\"ab\"" ) == "\"ab\""  );
+//     assert(quote("a\"b"   ) == "\"a\"b\"");
+//     assert(quote("\"a"    ) == "\"\"a\"" );
+//     assert(quote("a\""    ) == "\"a\"\"" );
+//     assert(quote(""       ) == "\"\""    );
+//     assert(quote("\""     ) == "\"\"\""  );
+//     cout << "all tests passed\n";
+// }
 
 int main(int argc, char *argv[]) {
     cout << "Welcome to assignment 1! Here's what you typed:\n";
+    
+    // cout << quote("\"Aloha!\"") << "\n";
+
     for (int i = 0; i < argc; i++) {
         cout << argv[i] << " ";
     }
     cout << "\n";
+
+    //test_quote();
 } // main
