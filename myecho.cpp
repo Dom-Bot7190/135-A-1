@@ -43,52 +43,41 @@ using namespace std;
 
 // Adds quotes if they do not already surround the string
 string quote(string s){
-    int strLength=0;
-    
-    for(int i=0; s[i]; i++){
-        strLength = i;
-    }
-    
-    if(s[1]=='"' && s[strLength]=='"'){
+    int strLength=s.length()-1;
+
+    if(strLength > 0 && (s[0]=='"' && s[strLength]=='"')){
         return s;
     } 
     
-    s.resize(strLength+2);
-
-    for(int i=strLength+2; i>=0; i--){
-        s[i]=s[i-2];
-    }
-
-    strLength++;
-    s[strLength+1] = '"';
-    s[0] = '"';
+    s.insert(s.begin(), '"');
+    s.push_back('"');
 
     return s;
 }
 
-// void test_quote(){
-//     cout << "testing quote ... ";
-//     assert(quote("a"      ) == "\"a\""   );
-//     assert(quote("ab"     ) == "\"ab\""  );
-//     assert(quote("\"a\""  ) == "\"a\""   );
-//     assert(quote("\"ab\"" ) == "\"ab\""  );
-//     assert(quote("a\"b"   ) == "\"a\"b\"");
-//     assert(quote("\"a"    ) == "\"\"a\"" );
-//     assert(quote("a\""    ) == "\"a\"\"" );
-//     assert(quote(""       ) == "\"\""    );
-//     assert(quote("\""     ) == "\"\"\""  );
-//     cout << "all tests passed\n";
-// }
+void test_quote(){
+    cout << "testing quote ... ";
+    assert(quote("a"      ) == "\"a\""   );
+    assert(quote("ab"     ) == "\"ab\""  );
+    assert(quote("\"a\""  ) == "\"a\""   );
+    assert(quote("\"ab\"" ) == "\"ab\""  );
+    assert(quote("a\"b"   ) == "\"a\"b\"");
+    assert(quote("\"a"    ) == "\"\"a\"" );
+    assert(quote("a\""    ) == "\"a\"\"" );
+    assert(quote(""       ) == "\"\""    );
+    assert(quote("\""     ) == "\"\"\""  );
+    cout << "all tests passed\n";
+}
 
 int main(int argc, char *argv[]) {
     cout << "Welcome to assignment 1! Here's what you typed:\n";
-    
-    // cout << quote("\"Aloha!\"") << "\n";
 
     for (int i = 0; i < argc; i++) {
         cout << argv[i] << " ";
     }
     cout << "\n";
 
-    //test_quote();
+    test_quote();
+    
+    return 0;
 } // main
