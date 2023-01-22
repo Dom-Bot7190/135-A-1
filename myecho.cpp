@@ -41,17 +41,20 @@
 
 using namespace std;
 
+/*
+PART 1
+Question 1
+*/
+
 // Adds quotes if they do not already surround the string
 string quote(string s){
+    // Set string variable to 0 indexing to match how characters are labeled
     int strLength=s.length()-1;
-
-    if(strLength > 0 && (s[0]=='"' && s[strLength]=='"')){
-        return s;
-    } 
-    
-    s.insert(s.begin(), '"');
-    s.push_back('"');
-
+    // Add double quotes if input does not already have them
+    if(!(strLength > 0 && s[0]=='"' && s[strLength]=='"')){
+        s.insert(s.begin(), '"');
+        s.push_back('"');
+    }
     return s;
 }
 
@@ -69,7 +72,46 @@ void test_quote(){
     cout << "all tests passed\n";
 }
 
-int main(int argc, char *argv[]) {
+/*
+Question 2
+*/
+
+string to_string(const vector<string>& v){
+    string output = "{";
+
+    if(v.size()>0){
+        output.push_back('"');
+
+        for(int i=0; i<v.size(); i++){
+            output.append(v[i]);
+
+            if(i<(v.size()-1)){
+                output.append(", ");
+            }
+        }
+        output.push_back('"');
+    }
+    
+    output.push_back('}');
+    return output;
+}
+
+/*
+ostream& operator<<(ostream& out, const vector<string>& v){
+    return out << to_string(v);
+}
+
+void test_to_string(){
+    cout << "testing to_string ... ";
+    assert((<< vector<string>{})              == "{}");
+    assert((<< vector<string>{"a"})           == "{"a"}");
+    assert((<< vector<string>{"a", "b"})      == "{"a", "b"}");
+    assert((<< vector<string>{"a", "b", "c"}) == "{"a", "b", "c"}");
+    cout << "all tests passed\n";
+}
+*/
+
+int main(int argc, char *argv[]){
     cout << "Welcome to assignment 1! Here's what you typed:\n";
 
     for (int i = 0; i < argc; i++) {
@@ -77,7 +119,9 @@ int main(int argc, char *argv[]) {
     }
     cout << "\n";
 
-    test_quote();
-    
+    cout << to_string(vector<string>{"a"}) << "\n";
+
+    //test_quote();
+
     return 0;
 } // main
