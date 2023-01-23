@@ -42,7 +42,6 @@
 using namespace std;
 
 /*
-PART 1
 Question 1
 */
 
@@ -110,16 +109,14 @@ void test_to_string(){
 }
 
 int main(int argc, char *argv[]){
-    cout << "Welcome to assignment 1! Here's what you typed:\n";
+    // test_quote();
+    // test_to_string();
 
-    for (int i = 0; i < argc; i++) {
+    //Q3
+    for (int i = 1; i < argc; i++) {
         cout << argv[i] << " ";
     }
     cout << "\n";
-
-    test_quote();
-    test_to_string();
-
 
     return 0;
 } // main
