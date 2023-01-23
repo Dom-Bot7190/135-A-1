@@ -80,36 +80,34 @@ string to_string(const vector<string>& v){
     string output = "{";
 
     if(v.size()>0){
-        output.push_back('"');
 
         for(int i=0; i<v.size(); i++){
+            output.push_back('"');
             output.append(v[i]);
+            output.push_back('"');
 
             if(i<(v.size()-1)){
                 output.append(", ");
             }
         }
-        output.push_back('"');
     }
-    
     output.push_back('}');
     return output;
 }
 
-/*
+
 ostream& operator<<(ostream& out, const vector<string>& v){
     return out << to_string(v);
 }
 
 void test_to_string(){
     cout << "testing to_string ... ";
-    assert((<< vector<string>{})              == "{}");
-    assert((<< vector<string>{"a"})           == "{"a"}");
-    assert((<< vector<string>{"a", "b"})      == "{"a", "b"}");
-    assert((<< vector<string>{"a", "b", "c"}) == "{"a", "b", "c"}");
+    assert(to_string(vector<string>{})              == "{}");
+    assert(to_string(vector<string>{"a"})           == "{\"a\"}");
+    assert(to_string(vector<string>{"a", "b"})      == "{\"a\", \"b\"}");
+    assert(to_string(vector<string>{"a", "b", "c"}) == "{\"a\", \"b\", \"c\"}");
     cout << "all tests passed\n";
 }
-*/
 
 int main(int argc, char *argv[]){
     cout << "Welcome to assignment 1! Here's what you typed:\n";
@@ -119,9 +117,9 @@ int main(int argc, char *argv[]){
     }
     cout << "\n";
 
-    cout << to_string(vector<string>{"a"}) << "\n";
+    test_quote();
+    test_to_string();
 
-    //test_quote();
 
     return 0;
 } // main
