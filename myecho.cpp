@@ -44,7 +44,6 @@ using namespace std;
 /*
 Question 1
 */
-
 // Adds quotes if they do not already surround the string
 string quote(string s){
     // Set string variable to 0 indexing to match how characters are labeled
@@ -74,7 +73,6 @@ void test_quote(){
 /*
 Question 2
 */
-
 string to_string(const vector<string>& v){
     string output = "{";
 
@@ -108,13 +106,96 @@ void test_to_string(){
     cout << "all tests passed\n";
 }
 
-int main(int argc, char *argv[]){
-    // test_quote();
-    // test_to_string();
+void helpMsg(){
+    cout << "Usage: ./myecho [-runtests|-(hrs)] [string ...]\n"
+         << "   -runtests: run the tests\n"
+         << "              over-rides single-character flags\n"
+         << "          -h: print this help message\n"
+         << "              over-rides other single-character flags\n"
+         << "          -r: print the strings in reverse order\n"
+         << "          -s: no space between arguments\n"
+         << "          -q: quote the printed results\n"
+         << "    -rs, -sr: no space between arguments, in reverse order\n"
+         << "\n"
+         << "   Repeated single-character flags are allowed (and are ignored).\n"
+         << "   Unknown flags cause an error.\n"
+         << "\n" << "\n"
+         << "Examples:\n"
+         << "   ❯ ./myecho -q\n"
+         << "   \"\"\n"
+         << "   ❯ ./myecho x y z\n"
+         << "   x y z\n"
+         << "   ❯ ./myecho -q x y z\n"
+         << "   \"x y z\"\n"
+         << "   ❯ ./myecho -sr x y z\n"
+         << "   zyx\n"
+         << "   ❯ ./myecho -h\n";
+}
 
-    //Q3
-    for (int i = 1; i < argc; i++) {
-        cout << argv[i] << " ";
+void runTests(){
+    test_quote();
+    test_to_string();
+}
+
+void printStr(int strCount, char *strArray[], int firstStrPos, bool sFlag, bool rFlag){
+    bool firstStr = true;
+    if(rFlag){
+        for (int i = (strCount-1); i > 1; i--) {
+            if((i<(strCount-1))&&(!sFlag)){
+                cout << " ";
+            }
+            cout << strArray[i];
+        }
+    } else {
+        for (int i = firstStrPos; i < strCount; i++) {
+            if((!firstStr)&&(!sFlag)){
+                cout << " ";
+            }
+            cout << strArray[i];
+            firstStr = false;
+        }
+    }
+}
+
+int main(int argc, char *argv[]){
+    bool qFlag = false;
+    bool sFlag = false;
+    bool rFlag = false;
+    int firstStrPos = 1;    
+    
+    // Don't run if no input is given
+    if(!argv[1]){
+        return 0;
+    }
+
+    // Check the first character to see if a flag has been entered
+    string flag = argv[1]; 
+    if(flag[0] == '-'){
+        firstStrPos++;
+
+        // Highest prescedence flags
+        if(flag == "-runtests"){
+            runTests();
+            return 0;
+        } else if(flag.find('h')<flag.length()){
+            helpMsg();
+            return 0;
+        } else {
+            // Lower prescedence flags
+            qFlag = (flag.find('q')<flag.length());
+            sFlag = (flag.find('s')<flag.length());
+            rFlag = (flag.find('r')<flag.length());
+        }
+    }
+    
+    if(qFlag){
+        cout << '"';
+    }
+
+    printStr(argc, argv, firstStrPos, sFlag, rFlag);
+
+    if(qFlag){
+        cout << '"';
     }
     cout << "\n";
 
