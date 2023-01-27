@@ -102,33 +102,33 @@ void test_to_string(){
 
 void helpMsg(){
     cout << "Usage: ./myecho [-runtests|-(hrs)] [string ...]\n"
-         << "   -runtests: run the tests\n"
-         << "              over-rides single-character flags\n"
-         << "          -h: print this help message\n"
-         << "              over-rides other single-character flags\n"
-         << "          -r: print the strings in reverse order\n"
-         << "          -s: no space between arguments\n"
-         << "          -q: quote the printed results\n"
-         << "    -rs, -sr: no space between arguments, in reverse order\n"
+         << "  -runtests: run the tests\n"
+         << "             over-rides single-character flags\n"
+         << "         -h: print this help message\n"
+         << "             over-rides other single-character flags\n"
+         << "         -r: print the strings in reverse order\n"
+         << "         -s: no space between arguments\n"
+         << "         -q: quote the printed results\n"
+         << "   -rs, -sr: no space between arguments, in reverse order\n"
          << "\n"
-         << "   Repeated single-character flags are allowed (and are ignored).\n"
-         << "   Unknown flags cause an error.\n"
+         << "  Repeated single-character flags are allowed (and are ignored).\n"
+         << "  Unknown flags cause an error.\n"
          << "\n" << "\n"
          << "Examples:\n"
-         << "   ❯ ./myecho -q\n"
-         << "   \"\"\n"
-         << "   ❯ ./myecho x y z\n"
-         << "   x y z\n"
-         << "   ❯ ./myecho -q x y z\n"
-         << "   \"x y z\"\n"
-         << "   ❯ ./myecho -sr x y z\n"
-         << "   zyx\n"
-         << "   ❯ ./myecho -h\n";
+         << "  ❯ ./myecho -q\n"
+         << "  \"\"\n"
+         << "  ❯ ./myecho x y z\n"
+         << "  x y z\n"
+         << "  ❯ ./myecho -q x y z\n"
+         << "  \"x y z\"\n"
+         << "  ❯ ./myecho -sr x y z\n"
+         << "  zyx\n"
+         << "  ❯ ./myecho -h\n";
 }
 
 void runTests(){
-    test_quote();
     test_to_string();
+    test_quote();
 }
 
 void printStr(int strCount, char *strArray[], int firstStrPos, bool sFlag, bool rFlag){
