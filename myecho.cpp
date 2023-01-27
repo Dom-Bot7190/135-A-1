@@ -41,9 +41,6 @@
 
 using namespace std;
 
-/*
-Question 1
-*/
 // Adds quotes if they do not already surround the string
 string quote(string s){
     // Set string variable to 0 indexing to match how characters are labeled
@@ -70,19 +67,15 @@ void test_quote(){
     cout << "all tests passed\n";
 }
 
-/*
-Question 2
-*/
 string to_string(const vector<string>& v){
     string output = "{";
-
+    // Add to vector if there are strings
     if(v.size()>0){
-
         for(int i=0; i<v.size(); i++){
             output.push_back('"');
             output.append(v[i]);
             output.push_back('"');
-
+            // Add comma and space to all but last character
             if(i<(v.size()-1)){
                 output.append(", ");
             }
@@ -92,17 +85,18 @@ string to_string(const vector<string>& v){
     return output;
 }
 
-
 ostream& operator<<(ostream& out, const vector<string>& v){
     return out << to_string(v);
 }
 
 void test_to_string(){
     cout << "testing to_string ... ";
-    assert(to_string(vector<string>{})              == "{}");
-    assert(to_string(vector<string>{"a"})           == "{\"a\"}");
-    assert(to_string(vector<string>{"a", "b"})      == "{\"a\", \"b\"}");
-    assert(to_string(vector<string>{"a", "b", "c"}) == "{\"a\", \"b\", \"c\"}");
+    assert(to_string(vector<string>{})                 == "{}");
+    assert(to_string(vector<string>{"a"})              == "{\"a\"}");
+    assert(to_string(vector<string>{"a", "b"})         == "{\"a\", \"b\"}");
+    assert(to_string(vector<string>{"a", "b", "c"})    == "{\"a\", \"b\", \"c\"}");
+    assert(to_string(vector<string>{"apple", "pear"})  == "{\"apple\", \"pear\"}");
+    assert(to_string(vector<string>{"Cows", "EatiNg"}) == "{\"Cows\", \"EatiNg\"}");
     cout << "all tests passed\n";
 }
 
@@ -139,17 +133,21 @@ void runTests(){
 
 void printStr(int strCount, char *strArray[], int firstStrPos, bool sFlag, bool rFlag){
     bool firstStr = true;
+    // Set to 0 indexing to make array reading simpler
+    int strCountLess = strCount-1;
+    // Reversed string printing
     if(rFlag){
-        for (int i = (strCount-1); i > 1; i--) {
-            if((i<(strCount-1))&&(!sFlag)){
-                cout << " ";
+        for (int i = (strCountLess); i > 1; i--) {
+            if((i<(strCountLess))&&(!sFlag)){
+                cout << ' ';
             }
             cout << strArray[i];
         }
     } else {
+    // Forward string printing
         for (int i = firstStrPos; i < strCount; i++) {
             if((!firstStr)&&(!sFlag)){
-                cout << " ";
+                cout << ' ';
             }
             cout << strArray[i];
             firstStr = false;
@@ -158,21 +156,19 @@ void printStr(int strCount, char *strArray[], int firstStrPos, bool sFlag, bool 
 }
 
 int main(int argc, char *argv[]){
-    bool qFlag = false;
-    bool sFlag = false;
-    bool rFlag = false;
-    int firstStrPos = 1;    
-    
     // Don't run if no input is given
     if(!argv[1]){
         return 0;
     }
-
+    // Init variables
+    bool qFlag = false;
+    bool sFlag = false;
+    bool rFlag = false;
+    int firstStrPos = 1;    
     // Check the first character to see if a flag has been entered
     string flag = argv[1]; 
     if(flag[0] == '-'){
         firstStrPos++;
-
         // Highest prescedence flags
         if(flag == "-runtests"){
             runTests();
@@ -187,17 +183,13 @@ int main(int argc, char *argv[]){
             rFlag = (flag.find('r')<flag.length());
         }
     }
-    
     if(qFlag){
         cout << '"';
     }
-
     printStr(argc, argv, firstStrPos, sFlag, rFlag);
-
     if(qFlag){
         cout << '"';
     }
     cout << "\n";
-
     return 0;
-} // main
+}
